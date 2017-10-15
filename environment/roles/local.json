@@ -1,0 +1,27 @@
+{
+  "name": "local",
+  "description": "installs sdd environment",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "apache": {
+      "mpm": "prefork"
+    }
+  },
+  "override_attributes": {},
+  "env_run_lists" : {
+    "production" : [],
+    "preprod" : [],
+    "dev": []
+  },
+  "run_list": [
+    "recipe[SDD::curl]",
+    "recipe[apt]",
+    "recipe[apache2]",
+    "recipe[apache2::mod_expires]",
+    "recipe[SDD::vhosts]",
+    "recipe[SDD::php]",
+    "recipe[SDD::php_mods]",
+    "recipe[SDD::uploadprogress]"
+  ]
+}

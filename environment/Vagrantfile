@@ -1,0 +1,68 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  # load custom config JSON
+  config_json = JSON.parse(File.read('config.json'))
+
+  # baseBox https://app.vagrantup.com/sensonicm
+  config.vm.box = 'sensonicm/sdd-xenial64'
+
+  # vagrant-vbguest (0.15.0) - update guest addition
+  config.vbguest.auto_update = false
+
+  # create a private network
+  config.vm.network 'private_network', ip: config_json['vbox']['ip']
+
+  # share an additional folder to the guest VM
+  config_json['vbox']['sync_folders'].each do |folder|
+    case folder['fs_type']
+    when 'nfs'
+      config.vm.synced_folder folder['host_folder'], folder['guest_folder'], type: 'nfs'
+    else
+      config.vm.synced_folder folder['host_folder'], folder['guest_folder']
+    end
+  end
+
+  # https://github.com/cogitatio/vagrant-hostsupdater
+  if Vagrant.has_plugin?('vagrant-hostsupdater')
+    config.hostsupdater.aliases = []
+    config_json['sdd']['sites'].each do |index, site|
+      config.hostsupdater.aliases.push(site['vhost']['url'])
+      if site['vhost']['alias']
+        site['vhost']['alias'].each do |alias_url|
+          config.hostsupdater.aliases.push(alias_url)
+        end
+      end
+    end
+  end
+
+  # autoremove hosts settings on halt, reload etc...
+  config.hostsupdater.remove_on_suspend = true
+
+  # provider-specific configuration
+  config.vm.provider 'virtualbox' do |vb|
+    vb.name = if config_json['vbox']['vm_name'].empty?
+      'SpotSeo_SDD'
+    else
+      "SpotSeo_SDD_#{config_json['vbox']['vm_name']}"
+    end
+    vb.memory = config_json['vbox']['memory']
+    vb.cpus = config_json['vbox']['cpu_count']
+  end
+
+  # initial shell script
+  config.vm.provision :shell, :path => 'shell/initial.sh'
+  config.ssh.forward_agent = true
+  config.vm.boot_timeout = 140
+
+  # chef-solo
+  config.vm.provision :chef_solo do |chef|
+    chef.json = config_json
+    chef.custom_config_path = 'solo.rb'
+    chef.add_role 'local'
+  end
+
+  # final shell script
+  config.vm.provision :shell, :path => 'shell/final.sh', :args => config_json['vbox']['ip']
+end

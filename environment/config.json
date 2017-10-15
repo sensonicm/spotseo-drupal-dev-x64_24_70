@@ -1,0 +1,43 @@
+{
+  "vbox": {
+    "vm_name": "xenial_64",
+    "ip": "192.168.44.44",
+    "memory": "6144",
+    "cpu_count": "2",
+    "sync_folders": [
+      {
+        "host_folder": "../source",
+        "guest_folder": "/var/www",
+        "fs_type": "nfs"
+      }
+    ]
+  },
+  "sdd": {
+    "sites": {
+      "drupal": {
+        "account_name": "admin",
+        "account_pass": "admin123",
+        "account_mail": "admin@example.com",
+        "site_name": "Drupal Site",
+        "site_mail": "drupal@example.com",
+        "vhost": {
+          "document_root": "drupal",
+          "url": "drupal.loc",
+          "alias": ["www.drupal.loc"]
+        }
+      },
+      "test": {
+        "account_name": "admin",
+        "account_pass": "admin123",
+        "account_mail": "admin@example.com",
+        "site_name": "Test Site",
+        "site_mail": "test@example.com",
+        "vhost": {
+          "document_root": "test",
+          "url": "test.loc",
+          "alias": ["www.test.loc"]
+        }
+      }
+    }
+  }
+}
