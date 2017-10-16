@@ -4,6 +4,6 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-package "curl" do
+package 'curl' do
   action :install
 end

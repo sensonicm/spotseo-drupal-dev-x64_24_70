@@ -30,15 +30,11 @@
     "recipe[apache2::mod_expires]",
     "recipe[mariadb::server]",
     "recipe[mariadb::client]",
-
-    
+    "recipe[SDD::database]",
     "recipe[SDD::php]",
     "recipe[SDD::php_mods]",
     "recipe[SDD::uploadprogress]",
     "recipe[SDD::folders]",
-
     "recipe[SDD::vhosts]"
-
-
   ]
 }

@@ -18,5 +18,5 @@ template "#{node['SDD']['php']['php_conf_dir']}/php.ini" do
   mode '0644'
   manage_symlink_source true
   variables(directives: node['SDD']['php']['directives'])
-  notifies :restart, "service[apache2]", :delayed
+  notifies :restart, 'service[apache2]', :delayed
 end
