@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.8
+  - name: centos-7.2
+  - name: joshbeard/scientific-6.6-64
+suites:
+  - name: default
+    run_list:
+      - recipe[yum-scl::default]
+    attributes:
+      yum-scl:
+        prefer_os_repository: true
+  - name: chef
+    run_list:
+      - recipe[yum-scl::default]
+    attributes:
+      yum-scl:
+          prefer_os_package: false

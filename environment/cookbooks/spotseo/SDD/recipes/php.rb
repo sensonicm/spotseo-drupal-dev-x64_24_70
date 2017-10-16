@@ -5,9 +5,9 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 node['SDD']['php']['php_install'].each do |pkg|
-	package pkg do
-		action :install
-	end	
+  package pkg do
+    action :install
+  end
 end
 
 template "#{node['SDD']['php']['php_conf_dir']}/php.ini" do

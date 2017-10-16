@@ -6,6 +6,15 @@
   "default_attributes": {
     "apache": {
       "mpm": "prefork"
+    },
+    "mariadb": {
+      "use_default_repository": false,
+      "server_root_password": "simplepass",
+      "forbid_remote_root": false,
+      "allow_root_pass_change": true,
+      "client": {
+        "development_files": false
+      }
     }
   },
   "override_attributes": {},
@@ -19,9 +28,17 @@
     "recipe[apt]",
     "recipe[apache2]",
     "recipe[apache2::mod_expires]",
-    "recipe[SDD::vhosts]",
+    "recipe[mariadb::server]",
+    "recipe[mariadb::client]",
+
+    
     "recipe[SDD::php]",
     "recipe[SDD::php_mods]",
-    "recipe[SDD::uploadprogress]"
+    "recipe[SDD::uploadprogress]",
+    "recipe[SDD::folders]",
+
+    "recipe[SDD::vhosts]"
+
+
   ]
 }

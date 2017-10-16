@@ -1,0 +1,51 @@
+{
+  "name": "inifile_chef_gem",
+  "description": "Installs/Configures inifile gem for chef",
+  "long_description": "# inifile_chef_gem Cookbook\n\ninifile_chef_gem is a library cookbook. It provides custom resource, that can be used in recipes\n## Requirements\n\n### Chef\n\n- Chef 12.0 or later\n\n## Usage\n\nPlace a dependency in your cookbook's metadata.rb\n```ruby\ndepends 'inifile_chef_gem'\n```\nInstall gem using custom resource\n```ruby\ninifile_chef_gem 'default' do\n  action :install\nend\n```\n## Resource overview\n\n### inifile_chef_gem\n\nThe resource installs inifile gem into Chef's Ruby enviroment\n\n```ruby\ninifile_chef_gem 'default' do\n  gem_version '3.0.0'\n  action :install\nend\n```\n\n#### Parameters\n- gem_version - The version of rubygem to be installed. Defaults to 3.0.0\n\n#### Actions\n- :install - build and install gem into Chef's Ruby enviroment\n- :remove - Delete the gem from Chef's Ruby environment\n\n\n## License and Authors\n\nAuthors: Dmitry Shestoperov\n\n",
+  "maintainer": "Dmitry Shestoperov",
+  "maintainer_email": "dmitry@shestoperov.info",
+  "license": "All rights reserved",
+  "platforms": {
+
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/dimsh99/inifile_chef_gem",
+  "issues_url": "https://github.com/dimsh99/inifile_chef_gem/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

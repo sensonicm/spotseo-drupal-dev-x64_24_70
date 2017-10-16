@@ -2,8 +2,7 @@ source "https://api.berkshelf.com"
 
 cookbook 'apache2', '~> 5.0.1'
 cookbook 'apt', '~> 6.1.4'
-# cookbook 'build-essential', '~> 8.0.3'
 cookbook 'iptables', '~> 4.2.1'
 cookbook 'logrotate', '~> 2.2.0'
-# cookbook 'mysql', '~> 8.5.1'
+cookbook 'mariadb', '~> 1.5.2'
 cookbook 'openssl', '~> 7.1.0'

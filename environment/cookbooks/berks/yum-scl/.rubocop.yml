@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - '**/Vagrantfile'
+    - 'vendor/**/*'
+LineLength:
+  Max: 120
