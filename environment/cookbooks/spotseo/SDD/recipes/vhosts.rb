@@ -5,13 +5,16 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 apache_conf 'custom_settings' do
-	enable false
+  enable false
 end
 
 apache_config 'custom_settings' do
-	enable true
+  enable true
 end
 
+#
+# * TO DO - organize folders permission
+#
 # Add vagrant to www-data group
 #! group "www-data" do
 #   action :modify

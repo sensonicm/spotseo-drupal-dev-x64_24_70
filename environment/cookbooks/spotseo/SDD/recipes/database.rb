@@ -4,15 +4,18 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-bash "enable_apache_module_authz_user" do
-  user "root"
-  code <<-EOH
-  a2enmod authz_user
-  EOH
-  not_if { File.exists?("/etc/apache2/mods-enabled/authz_user") }
+service 'mysql' do
+  supports :restart => true, :start => true, :stop => true
+  action :nothing
 end
 
-package "phpmyadmin" do
+template '/etc/mysql/conf.d/20-innodb.cnf' do
+  source 'sdd_20-innodb.cnf.erb'
+  mode '0644'
+  notifies :restart, 'service[mysql]', :delayed
+end
+
+package 'phpmyadmin' do
   action :install
 end
 

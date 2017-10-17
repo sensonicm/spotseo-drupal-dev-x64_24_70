@@ -10,10 +10,25 @@
     "mariadb": {
       "use_default_repository": false,
       "server_root_password": "simplepass",
-      "forbid_remote_root": false,
+      "forbid_remote_root": true,
       "allow_root_pass_change": true,
       "client": {
         "development_files": false
+      },
+      "mysqld": {
+        "max_allowed_packet": "256M",
+        "thread_cache_size": "3",
+        "tmp_table_size": "128M",
+        "max_heap_table_size": "128M",
+        "key_buffer_size": "128M",
+        "table_open_cache": "800"
+      },
+      "innodb": {
+        "innodb_buffer_pool_size": "512M",
+        "innodb_buffer_pool_instances": "1"
+      },
+      "mysqldump": {
+        "max_allowed_packet": "32M"
       }
     }
   },
