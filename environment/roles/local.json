@@ -50,6 +50,7 @@
     "recipe[SDD::php_mods]",
     "recipe[SDD::uploadprogress]",
     "recipe[SDD::folders]",
-    "recipe[SDD::vhosts]"
+    "recipe[SDD::vhosts]",
+    "recipe[SDD::composer]"
   ]
 }
