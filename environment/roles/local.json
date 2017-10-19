@@ -51,6 +51,7 @@
     "recipe[SDD::uploadprogress]",
     "recipe[SDD::folders]",
     "recipe[SDD::vhosts]",
-    "recipe[SDD::composer]"
+    "recipe[SDD::composer]",
+    "recipe[SDD::drush]"
   ]
 }
