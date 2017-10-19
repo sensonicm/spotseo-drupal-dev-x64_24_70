@@ -53,6 +53,7 @@
     "recipe[SDD::vhosts]",
     "recipe[SDD::composer]",
     "recipe[SDD::drush]",
-    "recipe[SDD::info]"
+    "recipe[SDD::info]",
+    "recipe[SDD::siege]"
   ]
 }
