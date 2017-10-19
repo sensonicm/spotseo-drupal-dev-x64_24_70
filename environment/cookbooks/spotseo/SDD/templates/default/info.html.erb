@@ -46,8 +46,9 @@
       <% end %>
     </ul>
     <h2>Development Tools</h2>
+    <p>To verify the Mailcatcher, click on the "send testmail" - this script is simply send the test mail.</p>
     <ul>
-      <li><a href="http://<%= node['vbox']['ip'] %>:1080/" target="_blank">MailCatcher</a></li>
+      <li><a href="http://<%= node['vbox']['ip'] %>:1080/" target="_blank">MailCatcher</a><a href="/testmail.php" target="_blank"> (send testmail)</a></li>
       <li><a href="/phpmyadmin" target="_blank">phpMyAdmin</a></li>
       <li><a href="/phpinfo.php" target="_blank">phpinfo()</a></li>
     </ul>

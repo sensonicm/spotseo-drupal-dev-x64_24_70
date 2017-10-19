@@ -1,0 +1,57 @@
+{
+  "name": "chef-mailcatcher",
+  "description": "Installs/Configures mailcatcher",
+  "long_description": "Installs/Configures mailcatcher",
+  "maintainer": "Keli Grubb",
+  "maintainer_email": "keligrubb324@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "chef-mailcatcher": "Installs a single configurable instance of mailcatcher and installs/configures postfix."
+  },
+  "version": "0.2.1",
+  "source_url": "https://github.com/kgrubb/chef-mailcatcher",
+  "issues_url": "https://github.com/kgrubb/chef-mailcatcher/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

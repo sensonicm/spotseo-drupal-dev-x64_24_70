@@ -63,7 +63,20 @@ Installs a certificate into the Windows certificate store from a file, and grant
 - `source` - name attribute. The source file (for create and acl_add), thumbprint (for delete and acl_add) or subject (for delete).
 - `pfx_password` - the password to access the source if it is a pfx file.
 - `private_key_acl` - array of 'domain\account' entries to be granted read-only access to the certificate's private key. This is not idempotent.
-- `store_name` - the certificate store to manipulate. One of MY (default : personal store), CA (trusted intermediate store) or ROOT (trusted root store).
+- `store_name` - the certificate store to manipulate. One of:
+  - MY (Personal)
+  - CA (Intermediate Certification Authorities)
+  - ROOT (Trusted Root Certification Authorities)
+  - TRUSTEDPUBLISHER (Trusted Publishers)
+  - CLIENTAUTHISSUER (Client Authentication Issuers)
+  - REMOTE DESKTOP (Remote Desktop)
+  - TRUSTEDDEVICES (Trusted Devices)
+  - WEBHOSTING (Web Hosting)
+  - AUTHROOT (Third-Party Root Certification Authorities)
+  - TRUSTEDPEOPLE (Trusted People)
+  - SMARTCARDROOT (Smart Card Trusted Roots)
+  - TRUST (Enterprise Trust)
+  - DISALLOWED (Untrusted Certificates)
 - `user_store` - if false (default) then use the local machine store; if true then use the current user's store.
 
 #### Examples
@@ -106,7 +119,19 @@ Binds a certificate to an HTTP port in order to enable TLS communication.
 - `address` - the address to bind against. Default is 0.0.0.0 (all IP addresses).
 - `port` - the port to bind against. Default is 443.
 - `app_id` - the GUID that defines the application that owns the binding. Default is the values used by IIS.
-- `store_name` - the store to locate the certificate in. One of MY (default : personal store), CA (trusted intermediate store) or ROOT (trusted root store).
+- `store_name` - the store to locate the certificate in. One of:
+  - MY (Personal)
+  - CA (Intermediate Certification Authorities)
+  - ROOT (Trusted Root Certification Authorities)
+  - TRUSTEDPUBLISHER (Trusted Publishers)
+  - CLIENTAUTHISSUER (Client Authentication Issuers)
+  - REMOTE DESKTOP (Remote Desktop)
+  - TRUSTEDDEVICES (Trusted Devices)
+  - WEBHOSTING (Web Hosting)
+  - AUTHROOT (Third-Party Root Certification Authorities)
+  - TRUSTEDPEOPLE (Trusted People)
+  - SMARTCARDROOT (Smart Card Trusted Roots)
+  - TRUST (Enterprise Trust)
 
 #### Examples
 
@@ -168,7 +193,9 @@ get-windowsfeature
 
 - `feature_name` - name of the feature/role(s) to install. The same feature may have different names depending on the provider used (ie DHCPServer vs DHCP; DNS-Server-Full-Role vs DNS).
 - `all` - Boolean. Optional. Default: false. DISM and PowerShell providers only. For DISM this is the equivalent of specifying the /All switch to dism.exe, forcing all parent dependencies to be installed. With the PowerShell install method, the `-InstallAllSubFeatures` switch is applied. Note that these two methods may not produce identical results.
-- `source` - String. Optional. DISM provider only. Uses local repository for feature install.
+- `management_tools` - Boolean. Optional. Default: false. PowerShell provider only. Includes the `-IncludeManagementTools` switch. Installs all applicable management tools of the roles, role services, or features specified by the feature name.
+- `source` - String. Optional. DISM and PowerShell providers only. Uses local repository for feature install.
+- `timeout` - Integer. Optional. Default: 600. Specifies a timeout (in seconds) for feature install.
 - `install_method` - Symbol. Optional. If not supplied, Chef will determine which method to use (in the order of `:windows_feature_dism`, `:windows_feature_servercmd`, `:windows_feature_powershell`)
 
 #### Examples
@@ -181,13 +208,14 @@ windows_feature 'DHCPServer' do
 end
 ```
 
-Install the .Net 3.5.1 feature on Server 2012 using repository files on DVD and install all dependencies
+Install the .Net 3.5.1 feature on Server 2012 using repository files on DVD and install all dependencies with a timeout of 900 seconds
 
 ```ruby
 windows_feature "NetFx3" do
   action :install
   all true
   source "d:\sources\sxs"
+  timeout 900
 end
 ```
 
@@ -218,6 +246,16 @@ windows_feature ['Web-Asp-Net45', 'Web-Net-Ext45'] do
 end
 ```
 
+Install the Network Policy and Access Service feature, including the management tools. Which, for this example, will automatically install `RSAT-NPAS` as well.
+
+```ruby
+windows_feature 'NPAS' do
+  action :install
+  management_tools true
+  install_method :windows_feature_powershell
+end
+```
+
 ### windows_font
 
 Installs a font.
@@ -230,13 +268,17 @@ Font files should be included in the cookbooks
 
 #### Properties
 
-- `name` - The file name of the font file name to install. The path defaults to the files/default directory of the cookbook you're calling windows_font from. Defaults to the resource name.
-- `source` - Set an alternate path to the font file.
+- `font_name` - The file name of the font file name to install. The path defaults to the files/default directory of the cookbook you're calling windows_font from. Defaults to the resource name.
+- `source` - Set an alternate path/URI to the font file.
 
 #### Examples
 
 ```ruby
 windows_font 'Code New Roman.otf'
+
+windows_font 'Custom.otf' do
+  source "https://example.com/Custom.otf"
+end
 ```
 
 ### windows_http_acl

@@ -54,6 +54,7 @@
     "recipe[SDD::composer]",
     "recipe[SDD::drush]",
     "recipe[SDD::info]",
-    "recipe[SDD::siege]"
+    "recipe[SDD::siege]",
+    "recipe[chef-mailcatcher::default]"
   ]
 }
