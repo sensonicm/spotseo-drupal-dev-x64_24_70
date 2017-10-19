@@ -9,7 +9,7 @@
     },
     "mariadb": {
       "use_default_repository": false,
-      "server_root_password": "simplepass",
+      "server_root_password": "simplepassword",
       "forbid_remote_root": true,
       "allow_root_pass_change": true,
       "client": {
