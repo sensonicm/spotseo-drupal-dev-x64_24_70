@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+  <head>
+    <title>SDD Environment</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      .code {
+        font-family: monospace;
+        background-color: #f6f6f2;
+        border: 1px solid #CCC;
+        padding: 10px;
+        margin-bottom: .5em;
+        list-style-type: none;
+        width: 650px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SpotSeo Drupal environment info!</h1>
+    <p>Hello, developer! This page contains basic information about the development environment.</p>
+    <h2>Configured Sites</h2>
+    <h3>Make sure that the sites are added to the <i>hosts</i> file:</h3>
+    <p>If you installed the <a href="https://github.com/cogitatio/vagrant-hostsupdater" target="_blank">vagrant-hostsupdater</a> plugin from the instruction, then the <strong>hosts</strong> file should contain the following information:</p>
+    <ul class="code">
+      <li># Sites declared in SDD's config.json</li>
+      <% @sites.each do |index, site| %>
+        <%- if defined?(site['vhost']['url']) then -%>
+          <li><%= node['vbox']['ip'] %> <%= site['vhost']['url'] %> </li>
+        <%- end -%>
+        <%- if defined?(site['vhost']['alias']) then -%>
+          <%- site['vhost']['alias'].each do |vhostalias| -%>
+            <li><%= node['vbox']['ip'] %> <%= vhostalias %> </li>
+          <%- end -%>
+        <%- end -%>
+      <% end %>
+      <li># End of sites declared with SDD</li>
+    </ul>
+    <ul>
+      <% @sites.each do |index, site| %>
+      <li>
+       <%- if defined?(site['vhost']['url']) then -%>
+         <a href="http://<%= site['vhost']['url'] %>"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
+       <%- else -%>
+         <a href="/<%= index %>"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
+       <%- end -%>
+      </li>
+      <% end %>
+    </ul>
+    <h2>Development Tools</h2>
+    <ul>
+      <li><a href="http://<%= node['vbox']['ip'] %>:1080/" target="_blank">MailCatcher</a></li>
+      <li><a href="/phpmyadmin" target="_blank">phpMyAdmin</a></li>
+      <li><a href="/phpinfo.php" target="_blank">phpinfo()</a></li>
+    </ul>
+    <h2>How To...</h2>
+    <h4>Where can I find help?</h4>
+    <p>Only God will help you...</p>
+    <p>Still you can try to ask a question to code@spotseo.ru. Perhaps fate will smile ...</p>
+    <h4>How to ssh into virtual machine?</h4>
+    <p>Open your terminal (e.g. iTerm2 or Powershell) application and change to the directory with your SDD copy to "environment". Then simply execute next command:</p>
+    <ol class="code">
+      <li>$ vagrant ssh</li>
+    </ol>
+    <h4>How to get access to phpmyadmin & mysql?</h4>
+    <p>Login to MySQL Server: root</p>
+    <p>Password to MySQL Server specified in the file "/environment/roles/local.json"</p>
+    <p>Then execute next commands in your terminal:</p>
+    <ol class="code">
+      <li>host$ vagrant ssh</li>
+      <li>vagrant guest$ sudo mysql -u root</li>
+      <li>mysql> USE mysql;</li>
+      <li>mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';</li>
+      <li>mysql> FLUSH PRIVILEGES;</li>
+      <li>mysql> exit;</li>
+    </ol>
+    <h4>How to quickly install Drupal 7?</h4>
+    <p>Make shure that appropriate site exists in config.json file. Don't forget to run 'vagrant provision' after changing config.json.</p>
+    <ol class="code">
+      <li>host$ vagrant ssh</li>
+      <li>vagrant guest$ rm -rf ~/sites/drupal7</li>
+      <li>vagrant guest$ cd ~/sites</li>
+      <li>vagrant guest$ drush dl drupal-7 --drupal-project-rename="drupal7"</li>
+      <li>vagrant guest$ drush @drupal7 si standard -y</li>
+    </ol>
+    <p></p>
+  </body>
+</html>
