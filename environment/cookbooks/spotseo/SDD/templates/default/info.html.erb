@@ -38,9 +38,9 @@
       <% @sites.each do |index, site| %>
       <li>
        <%- if defined?(site['vhost']['url']) then -%>
-         <a href="http://<%= site['vhost']['url'] %>"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
+         <a href="http://<%= site['vhost']['url'] %>" target="_blank"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
        <%- else -%>
-         <a href="/<%= index %>"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
+         <a href="/<%= index %>" target="_blank"><%= site['site_name'] %></a> (Drush alias is @<%= index %>)
        <%- end -%>
       </li>
       <% end %>

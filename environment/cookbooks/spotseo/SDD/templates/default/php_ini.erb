@@ -109,7 +109,7 @@
 ; html_errors
 ;   Default Value: On
 ;   Development Value: On
-;   Production value: Off
+;   Production value: On
 
 ; log_errors
 ;   Default Value: Off
@@ -148,8 +148,8 @@
 
 ; short_open_tag
 ;   Default Value: On
-;   Development Value: Off
-;   Production Value: Off
+;   Development Value: On
+;   Production Value: On
 
 ; track_errors
 ;   Default Value: Off
@@ -197,7 +197,7 @@ engine = On
 ; Development Value: Off
 ; Production Value: Off
 ; http://php.net/short-open-tag
-short_open_tag = Off
+short_open_tag = On
 
 ; Allow ASP-style <% %> tags.
 ; http://php.net/asp-tags
@@ -533,7 +533,7 @@ track_errors = Off
 ; Development Value: On
 ; Production value: Off
 ; http://php.net/html-errors
-html_errors = Off
+html_errors = On
 
 ; If html_errors is set to On *and* docref_root is not empty, then PHP
 ; produces clickable error messages that direct to a page describing the error
@@ -655,7 +655,7 @@ auto_globals_jit = On
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
-post_max_size = 8M
+post_max_size = <%= node['mariadb']['custom']['post_max_filesize'] %>
 
 ; Automatically add files before PHP document.
 ; http://php.net/auto-prepend-file
@@ -808,10 +808,10 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = 4M
+upload_max_filesize = <%= node['mariadb']['custom']['upload_max_filesize'] %>
 
 ; Maximum number of files that can be uploaded via a single request
-max_file_uploads = 20
+max_file_uploads = <%= node['mariadb']['custom']['max_file_uploads'] %>
 
 ;;;;;;;;;;;;;;;;;;
 ; Fopen wrappers ;
@@ -823,7 +823,7 @@ allow_url_fopen = On
 
 ; Whether to allow include/require to open URLs (like http:// or ftp://) as files.
 ; http://php.net/allow-url-include
-allow_url_include = Off
+allow_url_include = On
 
 ; Define the anonymous ftp password (your email address). PHP's default setting
 ; for this is empty.

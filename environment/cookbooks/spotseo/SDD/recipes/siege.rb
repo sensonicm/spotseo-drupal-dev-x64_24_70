@@ -4,6 +4,6 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-package "siege" do
+package 'siege' do
   action :install
 end

@@ -1,27 +1,27 @@
 <?php
 
-<% @node["sdd"]["sites"].each do |index, site| %>
+<% @node['sdd']['sites'].each do |index, site| %>
 // Drush alias for <%= index %>
 $aliases['<%= index %>'] = array(
-  'root' => '/var/www/<%= defined?(site["vhost"]["document_root"]) ? site["vhost"]["document_root"] : index %>',
-  'uri' => '<%= defined?(site["vhost"]["url"]) ? site["vhost"]["url"] : node["vbox"]["ip"] + "/" + index %>',
+  'root' => "/var/www/<%= defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index %>",
+  'uri' => "<%= defined?(site['vhost']['url']) ? site['vhost']['url'] : node['vbox']['ip'] + '/' + index %>",
   'databases' => array (
     'default' => array (
       'default' => array (
         'driver' => 'mysql',
         'username' => 'root',
-        'password' => '<%= node["mariadb"]["server_root_password"] %>',
+        'password' => "<%= node['mariadb']['server_root_password'] %>",
         'database' => '<%= index %>',
       ),
     ),
   ),
   'command-specific' => array(
     'site-install' => array(
-      'account-name' => '<%= site["account_name"] %>',
-      'account-pass' => '<%= site["account_pass"] %>',
-      'account-mail' => '<%= site["account_mail"] %>',
-      'site-name' => '<%= site["site_name"] %>',
-      'site-mail' => '<%= site["site_mail"] %>',
+      'account-name' => "<%= site['account_name'] %>",
+      'account-pass' => "<%= site['account_pass'] %>",
+      'account-mail' => "<%= site['account_mail'] %>",
+      'site-name' => "<%= site['site_name'] %>",
+      'site-mail' => "<%= site['site_mail'] %>",
       'yes' => FALSE,
     ),
   ),

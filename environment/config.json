@@ -14,16 +14,16 @@
   },
   "sdd": {
     "sites": {
-      "drupal": {
+      "drupal7": {
         "account_name": "admin",
         "account_pass": "admin123",
         "account_mail": "admin@example.com",
-        "site_name": "Drupal Site",
+        "site_name": "Drupal 7",
         "site_mail": "drupal@example.com",
         "vhost": {
-          "document_root": "drupal",
-          "url": "drupal.loc",
-          "alias": ["www.drupal.loc"]
+          "document_root": "drupal7",
+          "url": "drupal7.loc",
+          "alias": ["www.drupal7.loc"]
         }
       },
       "test": {

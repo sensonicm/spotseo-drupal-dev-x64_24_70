@@ -1,25 +1,43 @@
 <VirtualHost *:80>
-  DocumentRoot /var/www/html
-  ServerName localhost
-  RewriteEngine On
+  #
+  ServerAdmin srv-admin@example.com
+  #
+  DocumentRoot /var/www/html/
+  #
   ErrorLog /var/log/apache2/error.log
+  #
+  # *possible values: debug, info, notice, warn, error, crit, alert, emerg.
   LogLevel warn
+  #
   CustomLog /var/log/apache2/access.log combined
   ServerSignature On
+  #
 </VirtualHost>
 
-<% @node["sdd"]["sites"].each do |index, site| %>
-  <%- if defined?(site["vhost"]) then -%>
+<% @node['sdd']['sites'].each do |index, site| %>
+  <%- if defined?(site['vhost']) then -%>
     <VirtualHost *:80>
-      DocumentRoot /var/www/<%= defined?(site["vhost"]["document_root"]) ? site["vhost"]["document_root"] : index %>
-      ServerName <%= defined?(site["vhost"]["url"]) ? site["vhost"]["url"] : index %>
-      ServerAlias <%= defined?(site["vhost"]["alias"]) ? site["vhost"]["alias"].join(" ") : index %>
-      ServerAdmin <%= site["account_mail"] %>
-      RewriteEngine On
+      #
+      ServerName <%= defined?(site['vhost']['url']) ? site['vhost']['url'] : index %>
+      ServerAlias <%= defined?(site['vhost']['alias']) ? site['vhost']['alias'].join(" ") : index %>
+      ServerAdmin <%= site['account_mail'] %>
+      #
+      DocumentRoot /var/www/<%= defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index %>
+      DirectoryIndex index.php index.html
+      <Directory /var/www/<%= defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index %>>
+        Options Indexes
+        AllowOverride All
+        Require all granted
+      </Directory>
+      #
       ErrorLog /var/log/apache2/<%= index %>.error.log
+      #
+      # *possible values: debug, info, notice, warn, error, crit, alert, emerg.
       LogLevel warn
+      #
       CustomLog /var/log/apache2/<%= index %>.access.log combined
       ServerSignature On
+      #
     </VirtualHost>
   <% end %>
 <%- end -%>

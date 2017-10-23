@@ -12,24 +12,6 @@ apache_config 'custom_settings' do
   enable true
 end
 
-#
-# * TO DO - organize folders permission
-#
-# Add vagrant to www-data group
-#! group "www-data" do
-#   action :modify
-#   members "vagrant"
-#   append true
-# end
-
-#! file File.join(File.dirname(node['apache']['docroot_dir']), 'index.html') do
-#   action :delete
-# end
-
-#! link "/home/vagrant/sites" do
-#   to "/var/www"
-# end
-
 web_app 'localhost_conf' do
   template 'localhost_conf.erb'
 end

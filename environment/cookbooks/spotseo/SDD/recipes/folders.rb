@@ -8,30 +8,30 @@ if node['sdd']['sites']
 
   node['sdd']['sites'].each do |index, site|
 
-    htdocs = defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index
+    docroot = defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index
 
-    if htdocs.start_with?('/')
-      htdocs = htdocs[1..-1]
+    if docroot.start_with?('/')
+      docroot = docroot[1..-1]
     end
 
-    htdocs = 'var/www/' + htdocs
+    htdocs = 'var/www/' + docroot
     htdocs = htdocs.split(%r{\/\s*})
     folder = '/'
     for i in (0..htdocs.length - 1)
       folder = folder + htdocs[i] + '/'
-      index_file = folder + '/index.html'
       directory folder do
-        action :create
-      end
-      file index_file do
-        content '<html>This is a placeholder.</html>'
-        mode '0644'
         action :create
       end
     end
 
-    # TO DO - перенести создание index.html только в конечную папку и базу подключить
+    index_file = 'var/www/' + docroot + '/index.html'
 
+    file index_file do
+      content "<html>This is a placeholder for #{site['vhost']['url']}.</html>"
+      mode '0644'
+      action :create
+      not_if { File.exists?(index_file) }
+    end
   end
 end
 
