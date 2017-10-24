@@ -12,6 +12,6 @@ apache_config 'custom_settings' do
   enable true
 end
 
-web_app 'localhost_conf' do
-  template 'localhost_conf.erb'
+web_app 'localhost' do
+  template 'localhost.erb'
 end

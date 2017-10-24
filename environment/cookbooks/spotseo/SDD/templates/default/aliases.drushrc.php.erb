@@ -16,13 +16,8 @@ $aliases['<%= index %>'] = array(
     ),
   ),
   'command-specific' => array(
-    'site-install' => array(
-      'account-name' => "<%= site['account_name'] %>",
-      'account-pass' => "<%= site['account_pass'] %>",
-      'account-mail' => "<%= site['account_mail'] %>",
-      'site-name' => "<%= site['site_name'] %>",
-      'site-mail' => "<%= site['site_mail'] %>",
-      'yes' => FALSE,
+    'archive-dump' => array(
+      'destination' => "/var/www/backup/<%= index %>/dump-001.tar.gz",
     ),
   ),
 );

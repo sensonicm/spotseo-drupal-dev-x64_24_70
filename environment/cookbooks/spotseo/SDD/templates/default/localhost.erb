@@ -3,6 +3,11 @@
   ServerAdmin srv-admin@example.com
   #
   DocumentRoot /var/www/html/
+  <Directory /var/www/html/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+  </Directory>
   #
   ErrorLog /var/log/apache2/error.log
   #
@@ -20,7 +25,7 @@
       #
       ServerName <%= defined?(site['vhost']['url']) ? site['vhost']['url'] : index %>
       ServerAlias <%= defined?(site['vhost']['alias']) ? site['vhost']['alias'].join(" ") : index %>
-      ServerAdmin <%= site['account_mail'] %>
+      ServerAdmin <%= site['site_mail'] %>
       #
       DocumentRoot /var/www/<%= defined?(site['vhost']['document_root']) ? site['vhost']['document_root'] : index %>
       DirectoryIndex index.php index.html
