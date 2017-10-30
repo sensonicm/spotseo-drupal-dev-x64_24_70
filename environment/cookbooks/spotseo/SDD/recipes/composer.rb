@@ -2,7 +2,7 @@
 # Cookbook:: SDD
 # Recipe:: composer
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.
 
 bash 'install-composer' do
   code <<-EOH

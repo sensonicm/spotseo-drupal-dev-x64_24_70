@@ -2,4 +2,4 @@
 # Cookbook:: SDD
 # Recipe:: default
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.

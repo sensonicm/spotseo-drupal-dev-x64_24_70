@@ -2,7 +2,7 @@
 # Cookbook:: SDD
 # Recipe:: php
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.
 
 node['SDD']['php']['php_install'].each do |pkg|
   package pkg do

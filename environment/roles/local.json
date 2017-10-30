@@ -1,42 +1,9 @@
 {
   "name": "local",
-  "description": "installs sdd environment",
+  "description": "installs SDD environment",
   "chef_type": "role",
   "json_class": "Chef::Role",
-  "default_attributes": {
-    "apache": {
-      "mpm": "prefork"
-    },
-    "mariadb": {
-      "use_default_repository": false,
-      "server_root_password": "simplepassword",
-      "forbid_remote_root": false,
-      "allow_root_pass_change": true,
-      "client": {
-        "development_files": false
-      },
-      "mysqld": {
-        "max_allowed_packet": "256M",
-        "thread_cache_size": "3",
-        "tmp_table_size": "128M",
-        "max_heap_table_size": "128M",
-        "key_buffer_size": "128M",
-        "table_open_cache": "800"
-      },
-      "innodb": {
-        "innodb_buffer_pool_size": "512M",
-        "innodb_buffer_pool_instances": "1"
-      },
-      "mysqldump": {
-        "max_allowed_packet": "32M"
-      },
-      "custom": {
-        "upload_max_filesize": "64M",
-        "post_max_filesize": "64M",
-        "max_file_uploads": "500"
-      }
-    }
-  },
+  "default_attributes": {},
   "override_attributes": {},
   "env_run_lists" : {
     "production" : [],
@@ -48,6 +15,8 @@
     "recipe[apt]",
     "recipe[apache2]",
     "recipe[apache2::mod_expires]",
+    "recipe[apache2::mod_request]",
+    "recipe[apache2::mod_rewrite]",
     "recipe[mariadb::server]",
     "recipe[mariadb::client]",
     "recipe[SDD::database]",

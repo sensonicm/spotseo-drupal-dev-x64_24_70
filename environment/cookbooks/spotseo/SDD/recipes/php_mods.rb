@@ -2,7 +2,7 @@
 # Cookbook:: SDD
 # Recipe:: php_mods
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.
 
 mods = [
   'php-apcu',

@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
+  
   # load custom config JSON
   config_json = JSON.parse(File.read('config.json'))
 
@@ -9,16 +10,20 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'sensonicm/sdd-xenial64'
 
   # vagrant-vbguest (0.15.0) - update guest addition
-  config.vbguest.auto_update = false
+  config.vbguest.auto_update = true
 
   # create a private network
   config.vm.network 'private_network', ip: config_json['vbox']['ip']
+
+  # GUID and UID provided on NFS mount
+  config.winnfsd.uid = 1000
+  config.winnfsd.gid = 1000
 
   # share an additional folder to the guest VM
   config_json['vbox']['sync_folders'].each do |folder|
     case folder['fs_type']
     when 'nfs'
-      config.vm.synced_folder folder['host_folder'], folder['guest_folder'], type: 'nfs'
+      config.vm.synced_folder folder['host_folder'], folder['guest_folder'], nfs: true
     else
       config.vm.synced_folder folder['host_folder'], folder['guest_folder']
     end

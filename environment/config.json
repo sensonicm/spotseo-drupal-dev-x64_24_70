@@ -2,7 +2,7 @@
   "vbox": {
     "vm_name": "xenial_64",
     "ip": "192.168.44.44",
-    "memory": "6144",
+    "memory": "4096",
     "cpu_count": "2",
     "sync_folders": [
       {
@@ -14,24 +14,60 @@
   },
   "sdd": {
     "sites": {
-      "drupal7": {
-        "site_name": "Drupal 7",
+      "drupal": {
         "site_mail": "drupal@example.com",
+        "site_name": "Drupal",
+        "database" : "drupal",
         "vhost": {
           "document_root": "drupal7",
           "url": "drupal7.loc",
           "alias": ["www.drupal7.loc"]
         }
       },
-      "test": {
-        "site_name": "Test Site",
+      "testsite": {
         "site_mail": "test@example.com",
+        "site_name": "TestSite",
+        "database" : "testsite",
         "vhost": {
-          "document_root": "test",
-          "url": "test.loc",
-          "alias": ["www.test.loc"]
+          "document_root": "testsite",
+          "url": "testsite.loc",
+          "alias": ["www.testsite.loc"]
         }
       }
+    }
+  },
+  "apache": {
+    "mpm": "prefork",
+    "user": "vagrant",
+    "group": "vagrant"
+  },
+  "mariadb": {
+    "server_root_password": "password",
+    "use_default_repository": false,
+    "forbid_remote_root": false,
+    "allow_root_pass_change": true,
+    "client": {
+      "development_files": false
+    },
+    "mysqld": {
+      "max_allowed_packet": "256M",
+      "thread_cache_size": "3",
+      "tmp_table_size": "128M",
+      "max_heap_table_size": "128M",
+      "key_buffer_size": "128M",
+      "table_open_cache": "800"
+    },
+    "innodb": {
+      "innodb_buffer_pool_size": "512M",
+      "innodb_buffer_pool_instances": "1"
+    },
+    "mysqldump": {
+      "max_allowed_packet": "32M"
+    },
+    "custom": {
+      "upload_max_filesize": "64M",
+      "post_max_filesize": "64M",
+      "max_file_uploads": "500"
     }
   }
 }

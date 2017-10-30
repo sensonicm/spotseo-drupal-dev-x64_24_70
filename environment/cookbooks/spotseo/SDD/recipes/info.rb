@@ -2,7 +2,7 @@
 # Cookbook:: SDD
 # Recipe:: info
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.
 
 template '/var/www/html/index.html' do
   source 'info.html.erb'

@@ -2,7 +2,7 @@
 # Cookbook:: SDD
 # Recipe:: folders
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, @code SpotSeo.
 
 if node['sdd']['sites']
 
@@ -20,6 +20,7 @@ if node['sdd']['sites']
     for i in (0..htdocs.length - 1)
       folder = folder + htdocs[i] + '/'
       directory folder do
+        mode '0775'
         action :create
       end
     end
@@ -28,7 +29,7 @@ if node['sdd']['sites']
 
     file index_file do
       content "<html>This is a placeholder for #{site['vhost']['url']}.</html>"
-      mode '0644'
+      mode '0664'
       action :create
       not_if { File.exists?(index_file) }
     end
@@ -40,5 +41,6 @@ file File.join(File.dirname(node['apache']['docroot_dir']), 'index.html') do
 end
 
 file File.join(File.dirname(node['apache']['docroot_dir']), 'html/index.html') do
+  mode '0664'
   action :delete
 end
