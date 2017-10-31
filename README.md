@@ -54,8 +54,130 @@ the versions of the plug-ins on which the testing was performed.
 
 # Edit and settings
 
+### cookbooks
+
+You can add your own recipe to the "SDD" cook-book (the instruction is in the `/enviroment/cookbooks/spotseo/SDD/README.md` file), or add a ready cookbook from the [CHEF supermarket](https://supermarket.chef.io/cookbooks).
+
+Add the finished cook-book using the "Berkshelf". To do this, delete the `/environment/Berksfile.lock`, add a record to the `/environment/Berksfile` file with your new cook-book. Then open the terminal, go to the `/environment` and run the command:
+
+``` sh
+$ berks vendor cookbooks/berks
+```
+
+Then add the necessary recipe in the "run-list" in `/enviroment/roles/local.json`
+
+### VM settings
+
+The basic settings of the virtual machine and the environment are in the file `/environment/config.json`:
+
+1. section `"vbox"` describes the technical configuration of the machine.
+
+   `"vm_name":` the name of the virtual machine that will be displayed in VirtualBox GUI;
+
+   `"ip":` ip address that is assigned to the virtual machine, use the address range in "192.168.";
+
+   `"memory":` RAM allocated for a virtual machine, mainly used 50% of the actual physical memory size;
+
+   `"cpu_count":` number of processor cores allocated for a virtual machine. keep in mind that more than one virtual machine can be launched and count the forces of your system yourself;
+
+   `"sync_folders":` folders for synchronization are configured for the NFS protocol, if your system does not support this protocol, you need to make an additional configuration of the project. in practice: if you can not provide the NSF, it is better not to work with folder synchronization at all - everything is veeeeeeeeery slooooooooow.
+
+2. section `"sdd: sites"` describes virtual hosts and web-sites settings. You can specify characteristics for one or more sites. For each site in the synchronized folder `/source`, a partition is created with the root directory of the same name. It is recommended to use names without "-" and "_" characters. So that there are no possible conflicts, place sections with a description of the site in accordance with the increase in the length of the site name. Also the each site name will be used as an @alias for Drush.
+
+   `"site_mail":` arbitrary address, used to identify a virtual host, it is recommended to use different email addresses for different sites;
+
+   `"site_name":` site name used in the description and instructions;
+
+   `"database":` the name of the database for the site. During the VM load process, a database is created, as well as a database user with the same name and password.
+
+   `"vhost": document_root":` the name of the site that corresponds to the root directory in the synchronized folder.
+
+   `"vhost": url":` URL address of the website;
+
+   `"vhost": alias":` URL alias of the website.
+
+3. `"apache"` section contains the settings of the web-server. We use the "MPM Prefork" and run the web-server on behalf of the Vagrant user. This is against security (but it provides the best performance when working with the local server and synchronizing folders via NFS), so `do not use this settings to publish the production server`.
+
+4. `"mariadb"` section contains the basic settings of the database server. Adjust the settings on your own. The basic necessary setting is `"mariadb: server_root_password"`. By default, the following root accesses to the "MariaDB" server are specified (use them to access to phpmyadmin):
+   * login: root
+   * password: password
+
+### vagrantfile and others...
+
+Settings in any system files do only if you are sure that you know what you need to do ...
+
 # Usage
+
+Install Vagrant, plugins for Vagrant, VirtualBox.
+Copy the project folder by running the command in your terminal:
+
+``` sh
+$ git clone https://github.com/sensonicm/spotseo-drupal-dev-x64_24_70.git
+```
+
+Then go to the `/environment` folder and run the command:
+
+``` sh
+$ vagrant up
+```
+
+
+#### ...help page
+
+The system is installed for a few minutes, wait until the end. If everything went well at the end you will see a message:
+
+``` html
+Install complete! Visit http://'defined_ip_address' in your browser...
+```
+
+Open your web-browser and go to the specified address, there you will find additional instructions for managing the created machine and additional programs.
+
+#### vagrant basic commands:
+
+suspend the virtual machine for a while, `do not use if you plan to put the host machine into sleep mode`:
+
+``` sh
+$ vagrant suspend
+```
+
+stop the virtual machine while saving the state and all the settings:
+
+``` sh
+$ vagrant halt
+```
+
+completely remove the virtual machine and all the system settings (files in the NFS synced folder `will be retained !!!`):
+
+``` sh
+$ vagrant destroy -f
+```
 
 ### Backups and DB-Damps
 
-description in development and soon to be completed...
+To create backups go to the server through the SSH by running the following command in the terminal:
+
+``` sh
+$ vagrant ssh
+```
+
+To create a database dump, make sure that there is a `backup` directory in the project folder `/source`. In the terminal go to the directory of your site:
+
+``` sh
+$ cd /var/www/[defined_in_config.json_"document_root"]
+```
+
+and run the command:
+
+``` sh
+$ drush sql-dump
+```
+
+The database dump will be saved to the `/source/backup` folder on your host mashine.
+
+To create a dump of the root directory of the site and database, make sure that there is a `backup` directory in the project folder `/source`. In the terminal from any place execute the command (the command will be executed if you created a database for the site in the automatic mode from the config.json file):
+
+``` sh
+$ drush @[defined_in_config.json_"site section"] ard
+```
+
+Information on created `Drush @aliase's` and `site's root directories`, as well as logging link into the `phpmyadmin` and checking the work of the `mailcatcher` is on the [help page](https://github.com/sensonicm/spotseo-drupal-dev-x64_24_70#help-page).

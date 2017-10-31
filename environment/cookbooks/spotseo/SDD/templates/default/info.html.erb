@@ -65,9 +65,18 @@
     <p>Default MySQL root permission:</p>
     <p>login: root</p>
     <p>password: password</p>
+    <h4>Simple MySQL dump</h4>
+    <p>Navigate to your site root directory on the gues (example: /var/www/siteone) and run command:</p>
     <ol class="code">
-      <li>description in development and soon to be completed...</li>
+      <li>$ drush sql-dump</li>
     </ol>
+    <p>dump will be saved to the "/source/backup" folder on the host machine (make sure you have this folder beforehand)</p>
+    <h4>Simple Site&MySQL dump</h4>
+    <p>Run command on the guest:</p>
+    <ol class="code">
+      <li>$ drush @your-site-alias ard</li>
+    </ol>
+    <p>dump will be saved to the "/source/backup" folder on the host machine (make sure you have this folder beforehand)</p>
     <p>&nbsp;</p>
   </body>
 </html>

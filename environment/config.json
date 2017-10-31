@@ -14,24 +14,24 @@
   },
   "sdd": {
     "sites": {
-      "drupal": {
-        "site_mail": "drupal@example.com",
-        "site_name": "Drupal",
-        "database" : "drupal",
+      "siteone": {
+        "site_mail": "one@example.com",
+        "site_name": "Site One",
+        "database" : "databaseone",
         "vhost": {
-          "document_root": "drupal7",
-          "url": "drupal7.loc",
-          "alias": ["www.drupal7.loc"]
+          "document_root": "firstdocs",
+          "url": "first.loc",
+          "alias": ["www.first.loc"]
         }
       },
-      "testsite": {
-        "site_mail": "test@example.com",
-        "site_name": "TestSite",
-        "database" : "testsite",
+      "sitetwo": {
+        "site_mail": "two@example.com",
+        "site_name": "Site Two",
+        "database" : "databasetwo",
         "vhost": {
-          "document_root": "testsite",
-          "url": "testsite.loc",
-          "alias": ["www.testsite.loc"]
+          "document_root": "seconddocs",
+          "url": "second.loc",
+          "alias": ["www.second.loc"]
         }
       }
     }

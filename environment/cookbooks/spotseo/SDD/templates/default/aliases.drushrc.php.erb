@@ -11,7 +11,7 @@ $aliases['<%= index %>'] = array(
         'driver' => 'mysql',
         'username' => 'root',
         'password' => "<%= node['mariadb']['server_root_password'] %>",
-        'database' => '<%= index %>',
+        'database' => '<%= site['database'] %>',
       ),
     ),
   ),
