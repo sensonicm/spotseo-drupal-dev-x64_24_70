@@ -77,6 +77,12 @@
       <li>$ drush @your-site-alias ard</li>
     </ol>
     <p>dump will be saved to the "/source/backup" folder on the host machine (make sure you have this folder beforehand)</p>
+    <h4>Restore Site&MySQL dump with Drush</h4>
+    <p>Run command on the guest:</p>
+    <ol class="code">
+      <li>$ drush arr ./[backup_name].tar.gz --destination=/var/www/[site_dir_name] --overwrite --db-url=mysql://root:password@127.0.0.1/[dbname]</li>
+    </ol>
+    <p>dump will be restored to the "/var/www/[site_dir_name]" folder (make sure you have this folder beforehand)</p>
     <p>&nbsp;</p>
   </body>
 </html>
